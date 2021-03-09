@@ -4,11 +4,13 @@ import os
 import tqdm
 import shutil
 
+from pathlib import Path
+
 def split_wav(input_folder, output_folder, threshold):
     shutil.rmtree(output_folder, ignore_errors=True)
     os.makedirs(output_folder, exist_ok=True)
     search_path = os.path.join(input_folder, "*.wav")
-    for idx, file_path in tqdm.tqdm(enumerate(glob.glob(search_path))):
+    for idx, file_path in tqdm.tqdm(enumerate(Path('.').rglob('*.wav')):
         wav, sr = librosa.load(file_path, sr=None)
         intervals = librosa.effects.split(wav, top_db=threshold)
         sub_wav = [wav[itv[0]:itv[1]] for itv in intervals]
